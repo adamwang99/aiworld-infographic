@@ -1,6 +1,6 @@
 ---
 name: aiworld-infographic
-description: "Tạo infographic/image cho AI World với 3 layouts và 2 themes. Dùng cho báo cáo hệ thống, article illustration, hero images, và visual reports."
+description: "Tạo infographic/image/diagram cho AI World với 4 styles, 3 layouts và 2 themes. Dùng cho báo cáo hệ thống, article illustration, hero images, process flow, và visual reports."
 ---
 
 # AI World Infographic Skill
@@ -9,6 +9,7 @@ Tạo ảnh đẹp, chuyên nghiệp cho AI World với PIL (không cần API).
 
 ## Features
 
+- ✅ **4 Styles**: Hero, Infographic, Chart, Diagram
 - ✅ **3 Layouts**: Horizontal (article), Square (report), Vertical (long list)
 - ✅ **2 Themes**: Light mode & Dark mode
 - ✅ **AI World branding**: Logo tích hợp sẵn
@@ -109,6 +110,69 @@ python3 scripts/generate_image.py \
   --items "Task 1,Task 2,Task 3,Task 4,Task 5,Task 6,Task 7,Task 8,Task 9,Task 10" \
   --layout vertical \
   --output weekly_tasks.jpg
+```
+
+---
+
+### 4. Diagram (1080x1080 / 1200x630 / 1080x1350) - Process Flow
+
+**Khi nào dùng:**
+- Process flow/flowchart
+- Kiến trúc hệ thống
+- Decision tree
+- Workflow visualization
+- Training/Tutorial steps
+
+**Characteristics:**
+- Các box kết nối với nhau bằng arrow L-shape
+- Number badge trên mỗi box
+- Hỗ trợ phase annotation (nhóm box theo phase)
+- Logo AI World ở góc trái trên
+- Shadow card giống infographic, off=(12,12)
+
+```bash
+--style diagram
+```
+
+**Ví dụ — Simple flow (Square, Light):**
+```bash
+python3 scripts/generate_image.py \
+  --title "AI Governance Framework" \
+  --items "Define Policies,Assess Risks,Design Controls,Implement Monitoring,Audit & Report,Continuous Improve" \
+  --style diagram \
+  --layout square \
+  --output governance_flow.jpg
+```
+
+**Ví dụ — Horizontal (article):**
+```bash
+python3 scripts/generate_image.py \
+  --title "5 Step Process" \
+  --items "Research,Plan,Execute,Review,Optimize" \
+  --style diagram \
+  --layout horizontal \
+  --output process_flow.jpg
+```
+
+**Ví dụ — Dark mode (technical report):**
+```bash
+python3 scripts/generate_image.py \
+  --title "Deployment Pipeline" \
+  --items "Build,Test,Stage,Deploy,Verify,Monitor" \
+  --style diagram \
+  --layout square \
+  --dark \
+  --output pipeline_flow.jpg
+```
+
+**Ví dụ — Vertical (long process, many steps):**
+```bash
+python3 scripts/generate_image.py \
+  --title "Incident Response" \
+  --items "Detect,Triage,Contain,Investigate,Eradicate,Recover,Post-mortem" \
+  --style diagram \
+  --layout vertical \
+  --output incident_response.jpg
 ```
 
 ---
@@ -236,7 +300,8 @@ python3 scripts/generate_image.py \
 | `--layout` | horizontal, square, vertical | square | Layout type |
 | `--dark` | flag | false | Dark mode theme |
 | `--output` | path | ./output.jpg | Output file |
-| `--style` | hero, infographic | infographic | Content style |
+| `--phases` | comma-separated | "" | Phase labels for diagram (same count as items) |
+| `--style` | hero, infographic, diagram | infographic | Content style |
 
 ---
 
@@ -249,6 +314,9 @@ python3 scripts/generate_image.py \
 
 # Article infographic
 --layout horizontal --items "..."
+
+# Process diagrams
+--style diagram --layout square
 ```
 
 ### For Long (SRO)
@@ -258,6 +326,9 @@ python3 scripts/generate_image.py \
 
 # Long checklists
 --layout vertical --dark
+
+# Incident flow diagrams
+--style diagram --layout square --dark --items "..."
 ```
 
 ### For Phương (COO)
@@ -267,6 +338,9 @@ python3 scripts/generate_image.py \
 
 # Process documentation
 --layout vertical
+
+# Architecture/flow diagrams
+--style diagram --layout square --items "..."
 ```
 
 ---
